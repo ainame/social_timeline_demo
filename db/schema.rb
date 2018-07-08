@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_07_072501) do
+ActiveRecord::Schema.define(version: 2018_07_08_171716) do
 
   create_table "affinities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "from_user_id", null: false
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 2018_07_07_072501) do
     t.datetime "updated_at", null: false
     t.integer "actor_id", null: false
     t.index ["user_id"], name: "index_feed_items_on_user_id"
+  end
+
+  create_table "follows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "followee_id", null: false
+    t.integer "follower_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followee_id", "follower_id"], name: "index_follows_on_followee_id_and_follower_id", unique: true
   end
 
   create_table "recipes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
