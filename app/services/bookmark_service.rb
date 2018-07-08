@@ -10,10 +10,11 @@ class BookmarkService
   def run(recipe)
     Recipe.transaction do
       Bookmark.create!(user_id: @user.id, recipe_id: recipe.id)
-      affinity = Affinity.find_or_create(from_user_id: @user.id,
-                                         to_user_id: recipe.user_id)
+      affinity = Affinity.find_or_create_by(from_user_id: @user.id,
+                                            to_user_id: recipe.user_id)
       affinity.score += 1
       affinity.save!
     end
+  rescue ActiveRecord::RecordNotUnique
   end
 end
