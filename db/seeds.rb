@@ -22,11 +22,11 @@ User.transaction do
     num = rand(100)
     puts "#{user.id} - #{num}"
     num.times do |x|
-      Recipe.create(user: user, title: "recipe #{x} of #{user.name}")
+      recipe = Recipe.new(user: user, title: "recipe #{x} of #{user.name}")
+      RecipeService.run(user: user, recipe: recipe)
     end
   end
 end
-
 
 last_id = Recipe.last.id
 User.transaction do
